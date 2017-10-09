@@ -59,7 +59,7 @@ export const validationsMessages = (type:string, test?:boolean | string | number
     case "type":
       return `That's not a valid ${test}.`;
     default:
-      return `It looks like something went wrong. Try again?`;
+      return '';
   }
 };
 
@@ -108,7 +108,7 @@ export const testElement:TestElement = ({value, test, isFor, type, setValid}) =>
       } else {
         return console.error("Custom validation functions must return a bool, undefined or a promise");
       }
-    } 
+    }
     return setValid(false);
   }
 }
