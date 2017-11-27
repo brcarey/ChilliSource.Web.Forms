@@ -89,6 +89,18 @@ module.exports = {
       commonjs2: "recompose",
       amd: "recompose",
       root: "Recompose"
+    },
+    "prop-types": {
+      commonjs: "prop-types",
+      commonjs2: "prop-types",
+      amd: "prop-types",
+      root: "prop-types"
+    },
+    lodash : {
+      commonjs: "lodash",
+      commonjs2: "lodash",
+      amd: "lodash",
+      root: "_"
     }
   },
 

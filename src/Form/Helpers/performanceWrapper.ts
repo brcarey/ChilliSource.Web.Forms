@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 import Recompose from 'recompose';
 import {isUndefined} from 'lodash';
 import {getContext, withProps, shouldUpdate, withHandlers, compose, lifecycle} from 'recompose';
-import {Map} from 'immutable'; 
+import {Map} from 'immutable';
 
 /** Components */
 import {isMultipleValueInput, returnCheckedValue} from './inputHelpers';
-import {createSpecificShallowEqual} from 'cs.core';
 import {setInput, setInputInteraction, setValidation} from '../Actions/fields';
-import {BaseReactProps, WithHandlersGuard, PerformanceWrapperProps, FormContext, PerformanceWrapperWithProps, 
+import {BaseReactProps, WithHandlersGuard, PerformanceWrapperProps, FormContext, PerformanceWrapperWithProps,
         PerformanceWrapperWithHandlers, PerformanceWrapperInputHelpers, FieldSetNameSpaceProp, ValidationProps, OptionsProp,
-        PerformanceWrapperUncalledInputHelpers, PerformanceWrapperUncalledValidationHelpers, NameProp, IdProp, TypeProp, 
-        PossibleInputValue, OptionalValidationProps, LabelProp, DefaultValueProp, InputInfoProps, DefaultSwitchProps, 
+        PerformanceWrapperUncalledInputHelpers, PerformanceWrapperUncalledValidationHelpers, NameProp, IdProp, TypeProp,
+        PossibleInputValue, OptionalValidationProps, LabelProp, DefaultValueProp, InputInfoProps, DefaultSwitchProps,
         NameSpaceProp, FormStateProp, ValueProp, SetValidation, AdditionalCompareProps} from '../../../typings/types.d';
- 
+import createSpecificShallowEqual from '../../Form/Helpers/createSpecificShallowEqual';
 
 interface GetInputPathGuard extends NameProp, IdProp, FieldSetNameSpaceProp {}
 interface GetValidationPathGuard extends NameProp, FieldSetNameSpaceProp {}
@@ -23,11 +22,11 @@ interface WithNeededPropsGuard extends DefaultSwitchProps, DefaultValueProp<Poss
 type SpecificShallowEqualInterface = InputInfoProps & NameProp & NameSpaceProp & TypeProp & IdProp & BaseReactProps & OptionalValidationProps  & ValidationProps & DefaultValueProp<PossibleInputValue> & DefaultSwitchProps & OptionsProp & FieldSetNameSpaceProp & ValueProp<PossibleInputValue> & LabelProp
 
 /** Helpers */
-const specificShallowEqual = createSpecificShallowEqual<SpecificShallowEqualInterface>("inputInfo", "name", "nameSpace", "type", "id", "disabled", "noValidate", "required", "className", "defaultValue", "defaultChecked", "defaultSelected", "options", "fieldSetNameSpace", "value", "label");
+const specificShallowEqual = createSpecificShallowEqual("inputInfo", "name", "nameSpace", "type", "id", "disabled", "noValidate", "required", "className", "defaultValue", "defaultChecked", "defaultSelected", "options", "fieldSetNameSpace", "value", "label");
 
-const specificShallowEqualDefault = createSpecificShallowEqual<DefaultValueProp<PossibleInputValue>>("defaultValue");
+const specificShallowEqualDefault = createSpecificShallowEqual("defaultValue");
 
-const specificShallowEqualValue = createSpecificShallowEqual<ValueProp<PossibleInputValue>>("value");
+const specificShallowEqualValue = createSpecificShallowEqual("value");
 
 const getUnsetValue = ({type}:TypeProp) => {
   if (type === 'radio' || type === 'checkbox') {
@@ -38,7 +37,7 @@ const getUnsetValue = ({type}:TypeProp) => {
 };
 
 /**
- * 
+ *
  * @param type The type of grouping - 'input' or 'validation'
  * @param Object The values for each of the items i.e. {name, id, fieldSetNameSpace}
  */
@@ -76,7 +75,7 @@ const setIdToDefault = (type:string, id:string, defaultSwitch:string | number | 
   return defaultSwitch;
 }
 
-export const withNeededProps =<TOutter extends WithNeededPropsGuard> () => 
+export const withNeededProps =<TOutter extends WithNeededPropsGuard> () =>
   withProps<PerformanceWrapperWithProps, PerformanceWrapperWithHandlers & FormContext & TOutter>((props: FormContext & TOutter) => {
     if(props.nameSpace === undefined){
       throw new Error(`nameSpace is undefined ensure that a Form component is a parent of the component with name: "${props.name}"`);
@@ -85,7 +84,7 @@ export const withNeededProps =<TOutter extends WithNeededPropsGuard> () =>
     const inputPath = getInputPath("input", props);
     const inputInfo = props.FormState.getIn([props.nameSpace, ...inputPath], Map({}))
     const {defaultValue, defaultChecked, defaultSelected} = props;
-    
+
     const prioritisedDefaultValue = getPrioritisedDefaultValue(
       defaultValue,
       setIdToDefault(props.type, props.id, defaultChecked),
@@ -106,9 +105,9 @@ const setValidationWithHandlersObject = {
   },
   compareAdditionalProps: ({additionalCompareProps}:AdditionalCompareProps) => {
     if(additionalCompareProps){
-      return createSpecificShallowEqual<any>(...additionalCompareProps);
+      return createSpecificShallowEqual(...additionalCompareProps)();
     } else {
-      return () => false;
+      return false;
     }
   },
 }

@@ -3,19 +3,19 @@ import React, {ComponentType} from 'react';
 import {Map} from 'immutable';
 import {withProps, mapProps, shouldUpdate, ComponentEnhancer, InferableComponentEnhancer, compose, withState, withHandlers, lifecycle} from 'recompose';
 import classnames from 'classnames';
-import {createSpecificShallowEqual} from 'cs.core';
+import createSpecificShallowEqual from '../Form/Helpers/createSpecificShallowEqual';
 
 /** Helpers */
 import {testElement, validations, TestElement} from '../../libs/validate';
 import {isMultipleValueInput, returnCheckedValue} from '../Form/Helpers/inputHelpers';
 
-const specificShallowEqual = createSpecificShallowEqual<ValidationMapProps & TypeProp>('value', 'changed', 'type');
+const specificShallowEqual = createSpecificShallowEqual('value', 'changed', 'type');
 
-const specificShallowEqualDisplayed = createSpecificShallowEqual<{displayed: boolean, className: string}>('displayed', 'className');
+const specificShallowEqualDisplayed = createSpecificShallowEqual('displayed', 'className');
 
-const specificShallowEqualTestElement = createSpecificShallowEqual<{value: ValueProp<PossibleInputValue>, typeOfValidation: string, type?: string}>("value", "typeOfValidation", "type");
+const specificShallowEqualTestElement = createSpecificShallowEqual("value", "typeOfValidation", "type");
 
-const availableValidationsShallowEqual = createSpecificShallowEqual<any>("isFor", "test", ...Object.keys(validations));
+const availableValidationsShallowEqual = createSpecificShallowEqual("isFor", "test", ...Object.keys(validations));
 
 const Validation = ({displayed, className, children}: ValidationInnerElementProps) => {
   const classes = classnames('validation', className, {
@@ -33,7 +33,7 @@ const getValue = (name: string, inputInfo: Map<string, any>) : PossibleInputValu
 }
 
 /** Interfaces */
-import {ValidationAdditionProps, TextInputProps, ValidationInnerElementProps, 
+import {ValidationAdditionProps, TextInputProps, ValidationInnerElementProps,
         ValueProp, TypeProp, PossibleInputValue, ValidationTypes, ValidationComponentProps} from '../../typings/types.d';
 
 interface ValidationInternalAdditionProps extends ValidationAdditionProps{
@@ -88,7 +88,7 @@ export default compose<ValidationInnerElementProps, ValidationComponentProps>(
       setValidation(isFor, test);
       // value, test, isFor, type, setValid
       testElement(this.props);
-    }, 
+    },
     componentWillReceiveProps(nextProps){
       if(!specificShallowEqualTestElement(this.props, nextProps)){
         nextProps.testElement(nextProps);

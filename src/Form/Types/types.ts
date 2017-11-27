@@ -1,12 +1,13 @@
-import {ChangeEvent, FocusEvent, ReactText} from 'react';
+import {ChangeEvent, FocusEvent, ReactText, Props} from 'react';
 import {TypeOfTest} from './types';
 import {Dispatch} from 'redux';
 import {Map, List, Set} from 'immutable';
 import moment, {Moment} from 'moment';
 
-import {BaseReactProps} from "cs.core";
 import {SetInputPayload, SetInputInteractionPayload, SetValidationPayload} from '../../../typings/types.d';
 
+export interface BaseReactProps extends Props<any> {
+}
 
 export type Type = 'text' | 'radio' | 'checkbox' | 'number' | 'email' | 'password' | 'hidden' | 'file'
 export type TypeOfTest = "required" | "pattern" | "type" | "minLength" | "maxLength" | "min" | "max";
@@ -97,7 +98,7 @@ export interface FieldSetNameSpaceProp {
 }
 
 export interface LabelProp {
-	/** Add a label to the input*/			
+	/** Add a label to the input*/
 	label?: string
 }
 
@@ -127,24 +128,24 @@ export interface OptionsProp {
 }
 
 export interface DefaultValueProp<TDefault> {
-	/** Default value for the input to display */	
+	/** Default value for the input to display */
 	defaultValue?: TDefault,
 }
 
 export interface AdditionalCompareProps{
-	/** Additional props to check in should component update */	
+	/** Additional props to check in should component update */
 	additionalCompareProps?: string[],
 }
 
 export interface DefaultSwitchProps {
 	defaultChecked?: boolean | string | number | undefined,
-	defaultSelected?: boolean | string | number | undefined 
+	defaultSelected?: boolean | string | number | undefined
 }
 
 export interface InputWrapperProps extends BaseReactProps, LabelProp, NameProp, TypeProp {
-	/** Pass in something to be prepended to the label */ 	
+	/** Pass in something to be prepended to the label */
 	labelPrefix?: any,
-	/** Pass in something to be appended to the label */ 	
+	/** Pass in something to be appended to the label */
 	labelPostfix?: any,
 }
 
@@ -156,10 +157,10 @@ export interface AutoFocusProp {
 interface BaseInputProps<TDefault, TValue, TChangeEvent = ChangeEvent<{}>> extends BaseReactProps, OnChangeEventProps<TChangeEvent>, OnBlurEventProps<FocusEvent<{}>>, ValidationProps, NameProp, TypeProp, IdProp, DefaultValueProp<TDefault>, ValueProp<TValue>, AutoFocusProp {}
 
 export interface OptionalValidationProps{
-	/** Disable the input*/	
+	/** Disable the input*/
 	disabled?: boolean,
-	/** Don't validate the input*/			
-	noValidate? :boolean, 
+	/** Don't validate the input*/
+	noValidate? :boolean,
 }
 
 interface OptionTypes{
@@ -171,9 +172,9 @@ export interface TextAreaProps extends BaseInputProps<string, string>, BaseFrecl
   rows?: number
 }
 
-export interface TextInputProps extends BaseInputProps<string, string | number>, BaseFreclValidationProps, InputWrapperProps, InputGroupProps, PlaceholderProp, AdditionalCompareProps{} 
+export interface TextInputProps extends BaseInputProps<string, string | number>, BaseFreclValidationProps, InputWrapperProps, InputGroupProps, PlaceholderProp, AdditionalCompareProps{}
 export interface SelectInputProps extends BaseInputProps<string | number, string | number>, BaseFreclValidationProps, InputWrapperProps, DefaultSwitchProps, AdditionalCompareProps{
-	/** Pass in an arrow to display at the edge of the select box */ 
+	/** Pass in an arrow to display at the edge of the select box */
 	arrow?: React.ReactNode
 }
 
@@ -205,13 +206,13 @@ export interface ValidationElementProps extends BaseReactProps, NameProp, Additi
 export interface DisplayValidationProps extends BaseReactProps, OptionalValidationProps, BaseFreclValidationProps, TypeProp, NameProp{}
 
 export interface DropZoneProps extends BaseReactProps, NameProp, PlaceholderProp, ValueProp<Set<File>>, AdditionalCompareProps{
-	/** Controls whether multiple files can be uploaded or not */	
+	/** Controls whether multiple files can be uploaded or not */
 	multiple?: boolean,
 	/** Display a list of uploaded files */
 	showList?: boolean,
 	/**
 	 * User-defined function to display the file list.
-	 * The first argument is the list of files. The second argument 
+	 * The first argument is the list of files. The second argument
 	 * is a function to delete a file
 	 */
 	fileListComponent?: Function
@@ -310,17 +311,17 @@ export interface PerformanceWrapperUncalledValidationHelpers {
 }
 
 export interface PerformanceWrapperUncalledInputHelpers extends PerformanceWrapperUncalledValidationHelpers {
-	/** Update state with a new value for this input */ 
+	/** Update state with a new value for this input */
   inputChanged?: (props:InputChanged) => inputChanged,
-	/** Set the inputs state */ 
+	/** Set the inputs state */
   setInputBlurred?: (props:InputBlurred) => () => void
 }
 
 
 export interface PerformanceWrapperInputHelpers {
-	/** Update state with a new value for this input */ 
+	/** Update state with a new value for this input */
 	inputChanged: inputChanged,
-	/** Set the inputs state */ 
+	/** Set the inputs state */
 	setInputBlurred: inputBlurred,
 	setValidation: setValidation,
 	compareAdditionalProps: compareAdditionalProps
