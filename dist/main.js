@@ -4358,8 +4358,8 @@ var __extends = (this && this.__extends) || (function () {
 /** Class RadioTabs */
 var RadioTabs = /** @class */ (function (_super) {
     __extends(RadioTabs, _super);
-    function RadioTabs() {
-        var _this = _super.call(this) || this;
+    function RadioTabs(props) {
+        var _this = _super.call(this, props) || this;
         _this.setId = function (chosenId) {
             _this.setState({
                 chosenId: chosenId

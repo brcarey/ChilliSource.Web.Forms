@@ -12,8 +12,8 @@ import {RadioTabsProps, RadioTabProps, SwitchProps} from '../../typings/types.d'
 import './RadioTabs.scss';
 
 export interface RadioTabsPassedDownProps {
-  name: string, 
-  chosenId: string, 
+  name: string,
+  chosenId: string,
   setId: (chosenId: string) => undefined
 }
 
@@ -27,8 +27,8 @@ interface RadioTabsInnerProps extends RadioTabsProps{
 
 /** Class RadioTabs */
 class RadioTabs extends React.Component<RadioTabsProps, RadioTabsStateProps> {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       chosenId: ""
     }
@@ -53,7 +53,7 @@ class RadioTabs extends React.Component<RadioTabsProps, RadioTabsStateProps> {
     return (
       <InputWrapper className={classes} name={name} label={label}>
         {React.Children.map(children, (child:React.ReactElement<any>) => {
-          {/* 
+          {/*
           ATTN SHANE: Your hack doesn't work. Fix it!
           if(typeof child.type === 'string' || child.type.name !== 'RadioTab') {
             console.warn("RadioTabs can only accept RadioTab components as childen", "Element is " + child);
