@@ -105,9 +105,9 @@ const setValidationWithHandlersObject = {
   },
   compareAdditionalProps: ({additionalCompareProps}:AdditionalCompareProps) => {
     if(additionalCompareProps){
-      return createSpecificShallowEqual(...additionalCompareProps)();
+      return createSpecificShallowEqual(...additionalCompareProps);
     } else {
-      return false;
+      return () => false;
     }
   },
 }
@@ -145,7 +145,7 @@ const createUniversalCompose = <TOutter extends WithHandlersGuard, TWithHandlers
 
 
 export const validationPerformanceWrapper =<TOutter extends WithHandlersGuard> (ReactClass:ComponentType<TOutter & PerformanceWrapperProps>) => (
-  createUniversalCompose<TOutter, PerformanceWrapperUncalledValidationHelpers>(setValidationWithHandlersObject)(ReactClass)
+  createUniversalCompose<TOutter, PerformanceWrapperUncalledValidationHelpers>(setValidationWithHandlersObject as any)(ReactClass)
 )
 
 export default <TOutter extends WithHandlersGuard> (ReactClass:ComponentType<TOutter & PerformanceWrapperProps>) => {
@@ -156,10 +156,10 @@ export default <TOutter extends WithHandlersGuard> (ReactClass:ComponentType<TOu
         dispatch(setInputInteraction(nameSpace, inputPath, 'changed', changed));
       },
       setInputBlurred: ({dispatch, nameSpace, ...props}) => () => {
-        dispatch(setInputInteraction(nameSpace, getInputPath("input", props), 'blurred', true));
+        dispatch(setInputInteraction(nameSpace, getInputPath("input", props as any), 'blurred', true));
       },
       ...setValidationWithHandlersObject
-  });
+  } as any);
 
   return compose<PerformanceWrapperProps & TOutter, TOutter>(
     inputWrapperCompose,
