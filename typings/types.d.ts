@@ -228,11 +228,6 @@ export interface SelectInputProps extends BaseInputProps<string | number, string
   arrow?: React.ReactNode
 }
 
-export interface MultiSelectProps extends InputWrapperProps, BaseInputProps<any, any, List<any>>, AdditionalCompareProps, OptionsProp{
-  noResultsText?: string,
-  placeholder?: string
-}
-
 export interface SwitchProps extends BaseInputProps<boolean | string | number, string | boolean | undefined>, DefaultSwitchProps, LabelProp, AdditionalCompareProps{
   /** Put into state as the value of the selected switch */
   id: string

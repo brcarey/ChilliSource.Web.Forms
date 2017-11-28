@@ -13,7 +13,7 @@ import {List, Map} from 'immutable';
 /** Components */
 import {WithHandlersGuard, InputTest, ClearAllInputsAction, SwitchProps, OnSubmit,
         DatePickerProps, DateRangeProps, DropZoneProps, TextInputProps, DateRangeMap,
-        RadioTabProps, RadioTabsProps, SelectInputProps, MultiSelectProps,
+        RadioTabProps, RadioTabsProps, SelectInputProps,
         TextAreaProps, ValidateProps, ValidationComponentProps, FormProps,
         FieldSetProps, InputGroupProps, InputWrapperProps, ErrorWrapperProps,
         DisplayValidationProps, PerformanceWrapperProps, FormOwnProps, BaseReactProps} from './typings/types.d';
@@ -22,11 +22,11 @@ export = CSForms;
 export as namespace CSForms;
 
 declare namespace CSForms {
-  
+
   // Types and Interfaces
   // ----------------------------------------------------------------------------
   type InputUnionProps = TextInputProps | TextAreaProps | SelectInputProps | SwitchProps | RadioTabsProps | DatePickerProps | DateRangeProps
-  
+
   type DateRangeMoment = {
     startDate: Moment;
     endDate: Moment;
@@ -39,7 +39,7 @@ declare namespace CSForms {
     * currently supports: application/json and multipart/form-data */
     encType?: 'application/json' | 'multipart/form-data',
     /** Called before the form is submitted, ths is a chance to modify the contents of the payload
-     * primarily used by the form generator */    
+     * primarily used by the form generator */
     mapOutput?: (data?: Map<string, any>) => Map<string, any>,
     /** Called once Form has ensured that all child Input components are valid */
     onSubmit?: OnSubmit<T>,
@@ -53,9 +53,9 @@ declare namespace CSForms {
   // Functions
   // ----------------------------------------------------------------------------
   function performanceWrapper<TOutter extends WithHandlersGuard> (Component: React.ComponentType<TOutter & PerformanceWrapperProps>): React.ComponentType<TOutter>
-  
+
   function validationsAvailable<T> (inputAttributes:T): InputTest[];
-  
+
   function clearAllInputs(nameSpace: string): ClearAllInputsAction;
 
 
@@ -65,9 +65,9 @@ declare namespace CSForms {
   class DatePicker extends Component<DatePickerProps, {}>{}
 
   class DateRange extends Component<DateRangeProps, {}>{}
-  
+
   class DropZone extends Component<DropZoneProps, {}>{}
-  
+
   class Input extends Component<TextInputProps, {}>{}
 
   class Number extends Component<TextInputProps, {}>{}
@@ -79,8 +79,6 @@ declare namespace CSForms {
   class RadioTabs extends Component<RadioTabsProps, {}>{}
 
   class Select extends Component<SelectInputProps, {}>{}
-  
-  class MultiSelect extends Component<MultiSelectProps, {}>{}
 
   class TextArea extends Component<TextAreaProps, {}>{}
 
@@ -97,6 +95,6 @@ declare namespace CSForms {
   class InputWrapper extends Component<InputWrapperProps, {}>{}
 
   class ErrorWrapper extends Component<ErrorWrapperProps, {}>{}
-  
+
   class DisplayValidation extends Component<DisplayValidationProps, {}>{}
 }
