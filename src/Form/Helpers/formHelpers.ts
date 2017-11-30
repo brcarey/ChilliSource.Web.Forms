@@ -31,7 +31,7 @@ export const convertToFormData = (formMap:Map<string, any>) => {
 };
 
 export const normalizeFields = (fields:Map<string, any>) => {
-  return fields.map<Map<string, any>>((input, inputName:string) => {
+  return fields && fields.map<Map<string, any>>((input, inputName:string) => {
     if (isMultipleValueInput(inputName)) {
       return input.map((innerInput:Map<string, any>)=> {
         return innerInput.get('value');

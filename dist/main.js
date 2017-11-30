@@ -796,7 +796,7 @@ var convertToFormData = function (formMap) {
     throw new Error("convertToFormData requires a Immutable Iterable object");
 };
 var normalizeFields = function (fields) {
-    return fields.map(function (input, inputName) {
+    return fields && fields.map(function (input, inputName) {
         if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__inputHelpers__["a" /* isMultipleValueInput */])(inputName)) {
             return input.map(function (innerInput) {
                 return innerInput.get('value');
